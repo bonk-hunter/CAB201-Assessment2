@@ -9,7 +9,7 @@ namespace Assessment2_CAB201;
 ///
 /// RESPONSIBILITY: Holds the current constants.
 /// </summary>
-public static class QUTConsts
+public static class PDWorldConsts
 {
     // The format for the date and time strings
     public const string DATETIMEFORMAT = "HH:mm dd/MM/yyyy"; 

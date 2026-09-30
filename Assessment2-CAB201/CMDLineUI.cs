@@ -1,14 +1,13 @@
-using System.Globalization;
 namespace Assessment2_CAB201;
+using System.Globalization;
 
-using QUTConsts;
 
 /// <summary>
 /// The class will use the console to write and read user input and output. 
 /// 
 /// RESPONSIBILITY: User interaction.
 /// </summary>
-public class CLIUI 
+public class CMDLineUI
 {
 
 
@@ -68,7 +67,7 @@ public class CLIUI
     /// <returns>A string representation of the users input</returns>
     public static string GetString()
     {
-        string input = Console.ReadLine();
+        string input = Console.ReadLine() ?? "";
         return input;
     }
 
@@ -79,7 +78,7 @@ public class CLIUI
     /// <returns>A Int32 representation of the users input</returns>
     public static int GetInt()
     {
-        string input = Console.ReadLine();
+        string input = Console.ReadLine() ?? "";
         int i = int.Parse(input);
         return i;
     }
@@ -94,7 +93,7 @@ public class CLIUI
     public static int GetInt(string msg)
     {
         Console.WriteLine($"{msg}");
-        string input = Console.ReadLine();
+        string input = Console.ReadLine() ?? "";
         int i = int.Parse(input);
         return i;
     }
@@ -106,7 +105,7 @@ public class CLIUI
     /// <returns>A double floating point representation of the users input</returns>
     public static double GetDouble()
     {
-        string input = Console.ReadLine();
+        string input = Console.ReadLine() ?? "";
         double d = Double.Parse(input);
         return d;
     }
@@ -118,7 +117,7 @@ public class CLIUI
     /// <returns>A boolean representation of the users input</returns>
     public static bool GetBool()
     {
-        string input = Console.ReadLine();
+        string input = Console.ReadLine() ?? "";
         bool b = Boolean.Parse(input);
         return b;
     }
@@ -131,9 +130,9 @@ public class CLIUI
     /// <returns></returns>
     public static DateTime GetDateTime()
     {
-        string input = Console.ReadLine();
+        string input = Console.ReadLine() ?? "";
         DateTime result;
-        string format = QUTConsts.DATETIMEFORMAT; // Expected format is "HH:mm dd/MM/yyyy"
+        string format = PDWorldConsts.DATETIMEFORMAT; // Expected format is "HH:mm dd/MM/yyyy"
         bool dtWorked = DateTime.TryParseExact(input, format, CultureInfo.InvariantCulture, DateTimeStyles.None, out result);
         if (!dtWorked)
         {
