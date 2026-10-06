@@ -1,3 +1,5 @@
+using System.Runtime.InteropServices.JavaScript;
+
 namespace Assessment2_CAB201;
 
 public class Menu
@@ -25,7 +27,6 @@ public class Menu
     
     public User RegistrationMenu()
     {
-        User sessionUser = new User();
         string userChoice;
         CMDLineUI.DisplayString("");
         CMDLineUI.DisplayString("Registration Menu.");
@@ -39,15 +40,21 @@ public class Menu
         {
             case "1":
                 CMDLineUI.DisplayString("Register as a regular listener.");
+                User sessionUser = new RegularUser();
                 sessionUser.UserType = "regular listener";
                 break;
             case "2":
                 CMDLineUI.DisplayString("Register as a premium listener.");
+                User sessionUser =  new PremiumUser();
                 sessionUser.UserType = "premium listener";
                 break;
             case "3":
                 CMDLineUI.DisplayString("Register as a podcaster.");
+                User sessionUser = new Podcaster();
                 sessionUser.UserType = "podcaster";
+                break;
+            default:
+                JSType.Error error;
                 break;
         }
         CMDLineUI.DisplayString("Please enter your name:");
