@@ -3,8 +3,6 @@
 public class PDWorldController
 {
     private Menu menu = new Menu();
-    
-    private List<User> users = new List<User>();
     private Auth authentication = new Auth();
 
     public void Run()
@@ -19,10 +17,10 @@ public class PDWorldController
                 Goodbye();
             } else if (userChoice == "2")
             {
-                users.Add(menu.RegistrationMenu());
-            } else if (userChoice == "1" && users.Count != 0)
+                authentication.Register(menu.RegistrationMenu());
+            } else if (userChoice == "1")
             {
-                LogInMenu();
+                menu.LogInMenu(authentication);
             }
         }
     }
@@ -31,11 +29,6 @@ public class PDWorldController
     {
         CMDLineUI.DisplayString("See you on the next rotation.");
         Environment.Exit(0);
-    }
-
-    public void LogInMenu()
-    {
-        
     }
     
 }

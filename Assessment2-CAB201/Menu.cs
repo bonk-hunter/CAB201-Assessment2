@@ -3,6 +3,8 @@ namespace Assessment2_CAB201;
 public class Menu
 {
     
+    Auth authenticator;
+    
     public void DisplayHeader()
     {
         Console.WriteLine("=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+==");
@@ -46,7 +48,7 @@ public class Menu
         CMDLineUI.DisplayString("- be at least 8 characters long");
         CMDLineUI.DisplayString("- contain a number");
         CMDLineUI.DisplayString("- contain a lowercase letter");
-        CMDLineUI.DisplayString("- contain a uppercase letter");
+        CMDLineUI.DisplayString("- contain an uppercase letter");
         string password = CMDLineUI.GetString();
         while (!User.IsValidPassword(password))
         {
@@ -57,6 +59,26 @@ public class Menu
         CMDLineUI.DisplayString("Congratulations " + sessionUser.Username + ". You have registered as a " + sessionUser.UserType + ".");
         return sessionUser;
     }
+
+    public User LogInMenu(Auth authenticator)
+    {
+        CMDLineUI.DisplayString("Log In Menu.");
+        CMDLineUI.DisplayString("Please enter your email:");
+        User? user = authenticator.FindByEmail(CMDLineUI.GetString());
+        while (user == null)
+        {
+            CMDLineUI.DisplayErrorAgain("Email is not registered");
+            user = authenticator.FindByEmail(CMDLineUI.GetString());
+        }
+
+        CMDLineUI.DisplayString("Please enter your password:");
+        while (!user.CheckPassword(CMDLineUI.GetString()))
+        {
+            CMDLineUI.DisplayErrorAgain("Entered password does not match existing password");
+        }
+        return user;
+    }
+    
     
     private User ChooseUserType()
     {
