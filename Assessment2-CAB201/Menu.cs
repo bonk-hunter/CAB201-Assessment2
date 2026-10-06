@@ -27,7 +27,9 @@ public class Menu
     
     public User RegistrationMenu()
     {
+        CMDLineUI.DisplayString("Registration Menu.");
         User sessionUser = ChooseUserType();
+        CMDLineUI.DisplayString("Registering as a " + sessionUser.UserType+".");
         CMDLineUI.DisplayString("Please enter your name:");
         sessionUser.Username = CMDLineUI.GetString();
         CMDLineUI.DisplayString("Please enter your age between 18 and 99:");

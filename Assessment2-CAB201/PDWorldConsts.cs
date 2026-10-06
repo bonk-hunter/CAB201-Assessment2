@@ -6,8 +6,6 @@ namespace Assessment2_CAB201;
 /// As the program expands you may need to add more,
 /// add them to existing classes or 
 /// create a new class to hold them. 
-///
-/// RESPONSIBILITY: Holds the current constants.
 /// </summary>
 public static class PDWorldConsts
 {
