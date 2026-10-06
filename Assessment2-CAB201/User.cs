@@ -26,7 +26,7 @@ public abstract class User
 
 public class PremiumUser : User
 {
-    public override string UserType => "premium listener";
+    public override string UserType => "Premium Listener";
     public DateTime RegistrationDate { get; set; }
     public string PayID { get; set; } = "";
     
@@ -35,14 +35,14 @@ public class PremiumUser : User
 
 public class RegularUser : User
 {
-    public override string UserType => "regular listener";
+    public override string UserType => "Regular Listener";
     
-    public override string[] MenuOptions => new[] { "Create podcast", "View my podcasts", "Log out" };
+    public override string[] MenuOptions => new[] { "See my details", "Change my password", "View all podcasts", "Listen to a podcast episode", "Provide feedback on a podcast episode","Log out" };
 }
 
 public class Podcaster : User
 {
-    public override string UserType => "podcaster";
+    public override string UserType => "Podcaster";
     
     public override string[] MenuOptions => new[] { "Create podcast", "View my podcasts", "Log out" };
 }

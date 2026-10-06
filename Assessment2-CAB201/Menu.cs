@@ -29,7 +29,7 @@ public class Menu
     {
         CMDLineUI.DisplayString("Registration Menu.");
         User sessionUser = ChooseUserType();
-        CMDLineUI.DisplayString("Registering as a " + sessionUser.UserType+".");
+        CMDLineUI.DisplayString("Registering as a " + sessionUser.UserType.ToLower() +".");
         CMDLineUI.DisplayString("Please enter your name:");
         sessionUser.Username = CMDLineUI.GetString();
         CMDLineUI.DisplayString("Please enter your age between 18 and 99:");
@@ -62,7 +62,7 @@ public class Menu
 
     public User LogInMenu(Auth authenticator)
     {
-        CMDLineUI.DisplayString("Log In Menu.");
+        CMDLineUI.DisplayString("Log in Menu.");
         CMDLineUI.DisplayString("Please enter your email:");
         User? user = authenticator.FindByEmail(CMDLineUI.GetString());
         while (user == null)
@@ -76,9 +76,21 @@ public class Menu
         {
             CMDLineUI.DisplayErrorAgain("Entered password does not match existing password");
         }
+        CMDLineUI.DisplayString("Welcome back " +  user.Username + ".");
+        UserMenu(user);
         return user;
     }
-    
+
+    public User UserMenu(User user)
+    {
+        CMDLineUI.DisplayString(user.UserType + " Menu");
+        for(int i = 1; i <= user.MenuOptions.Length; i++)
+        {
+            CMDLineUI.DisplayString(i + ". " + user.MenuOptions[i-1] + ".");
+        }
+        CMDLineUI.DisplayString("Please enter a choice between 1 and " + user.MenuOptions.Length + ".");
+        
+    }
     
     private User ChooseUserType()
     {
