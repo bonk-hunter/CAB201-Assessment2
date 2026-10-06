@@ -1,5 +1,3 @@
-using System.Runtime.InteropServices.JavaScript;
-
 namespace Assessment2_CAB201;
 
 public class Menu
@@ -33,7 +31,12 @@ public class Menu
         CMDLineUI.DisplayString("Please enter your name:");
         sessionUser.Username = CMDLineUI.GetString();
         CMDLineUI.DisplayString("Please enter your age between 18 and 99:");
-        sessionUser.Age = CMDLineUI.GetInt();
+        int age;
+        while (!int.TryParse(CMDLineUI.GetString(), out age) || !User.IsValidAge(age))
+        {
+            CMDLineUI.DisplayErrorAgain("Invalid age");
+        }
+        sessionUser.Age = age;
         CMDLineUI.DisplayString("Please enter your mobile number:");
         sessionUser.Mobile = CMDLineUI.GetString();
         CMDLineUI.DisplayString("Please enter your email:");
@@ -44,7 +47,13 @@ public class Menu
         CMDLineUI.DisplayString("- contain a number");
         CMDLineUI.DisplayString("- contain a lowercase letter");
         CMDLineUI.DisplayString("- contain a uppercase letter");
-        sessionUser.Password = CMDLineUI.GetString();
+        string password = CMDLineUI.GetString();
+        while (!User.IsValidPassword(password))
+        {
+            CMDLineUI.DisplayErrorAgain("Invalid password");
+            password = CMDLineUI.GetString();
+        }
+        sessionUser.Password = password;
         CMDLineUI.DisplayString("Congratulations " + sessionUser.Username + ". You have registered as a " + sessionUser.UserType + ".");
         return sessionUser;
     }

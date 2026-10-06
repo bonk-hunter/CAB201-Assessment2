@@ -29,7 +29,7 @@ public class CMDLineUI
     }
 
     /// <summary>
-    /// Displays a an object's ToString method 
+    /// Displays an object's ToString method 
     /// </summary>
     /// <param name="msg">The message to display</param>
     public static void DisplayString(object o)

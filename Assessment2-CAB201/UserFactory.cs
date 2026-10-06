@@ -2,7 +2,7 @@
 
 public static class UserFactory
 {
-    public static User CreateUser(string choice)
+    public static User? CreateUser(string choice)
     {
         return choice switch
         {
