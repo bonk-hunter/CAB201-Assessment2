@@ -31,18 +31,36 @@ public class Menu
         User sessionUser = ChooseUserType();
         CMDLineUI.DisplayString("Registering as a " + sessionUser.UserType.ToLower() +".");
         CMDLineUI.DisplayString("Please enter your name:");
-        sessionUser.Username = CMDLineUI.GetString();
+        userName = CMDLineUI.GetString();
+		while (!User.IsValidName(userName)) 
+		{
+			CMDLineUI.DisplayErrorAgain("Invalid name");
+			userName = CMDLineUI.GetString();
+		}
         CMDLineUI.DisplayString("Please enter your age between 18 and 99:");
-        int age;
+        int age = int.Parse(CMDLineUI.GetString());
         while (!int.TryParse(CMDLineUI.GetString(), out age) || !User.IsValidAge(age))
         {
             CMDLineUI.DisplayErrorAgain("Invalid age");
+			age = int.Parse(CMDLineUI.GetString());
         }
         sessionUser.Age = age;
         CMDLineUI.DisplayString("Please enter your mobile number:");
-        sessionUser.Mobile = CMDLineUI.GetString();
+        string mobile = CMDLineUI.GetString();
+        while (!User.IsValidMobile(mobile))
+        {
+            CMDLineUI.DisplayErrorAgain("Invalid mobile");
+            mobile = CMDLineUI.GetString();
+        }
+        sessionUser.Mobile = mobile;
         CMDLineUI.DisplayString("Please enter your email:");
-        sessionUser.Email = CMDLineUI.GetString();
+		string email = CMDLineUI.GetString();
+        while (!User.IsValidEmail(email))
+        {
+            CMDLineUI.DisplayErrorAgain("Invalid email");
+            email = CMDLineUI.GetString();
+       	}
+        sessionUser.Email = email;
         CMDLineUI.DisplayString("Please enter your password:");
         CMDLineUI.DisplayString("Your password must:");
         CMDLineUI.DisplayString("- be at least 8 characters long");

@@ -10,7 +10,17 @@ public abstract class UserMenu
     }
 
     protected abstract string Title { get; }
-    protected abstract List<MenuOption> GetOptions();
+
+    protected abstract List<MenuOptions> GetExtraOptions();
+    
+    private List<MenuOptions> GetOptions()
+    {
+        List<MenuOptions> options = new()
+        {
+            new MenuOptions("See my details", SeeMyDetails),
+            new MenuOptions("Change my password", ChangePassword)
+        }
+    }
 
     public void Run()
     {
@@ -56,5 +66,29 @@ public abstract class UserMenu
             password = CMDLineUI.GetString();
         }
         user.Password = password;
+    }
+
+    public class RegularUserMenu : UserMenu
+    {
+        public override List<MenuOptions> GetExtraOptions => new()
+        {
+            new MenuOptions()
+        }
+    }
+
+    public class PremiumUserMenu : UserMenu
+    {
+        public override List<MenuOptions> GetExtraOptions => new()
+        {
+            new MenuOptions()
+        }
+    }
+
+    public class PodcasterMenu : UserMenu
+    {
+        public override List<MenuOptions> GetExtraOptions => new()
+        {
+            new MenuOptions
+        }
     }
 }

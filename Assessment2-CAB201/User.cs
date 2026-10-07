@@ -8,8 +8,27 @@ public abstract class User
     public int Age { get; set; }
     public string Mobile { get; set; } = "";
     public string Email { get; set; } = "";
+
+    public static bool IsValidName(string name) =>
+        name != '' &&
+        !name.Any(char.IsDigit);
     
-    public static bool IsValidAge(int age) => age >= 18 && age <= 99;
+    public static bool IsValidAge(int age) => 
+        age >= 18 && 
+        age <= 99;
+
+    public static bool IsValidEmail(string email)
+    {
+        int atSymbol = email.IndexOf('@');
+        return atSymbol > 0 &&
+               atSymbol < email.Length - 1 &&
+               email.IndexOf('@', atSymbol + 1) == -1;
+    }
+
+    public static bool IsValidMobile(string mobile) =>
+        mobile.Length == 10 &&
+        mobile[0] == '0' &&
+        mobile.All(char.IsDigit);
 
     public static bool IsValidPassword(string password) =>
         password.Length >= 8 &&
@@ -18,10 +37,7 @@ public abstract class User
         password.Any(char.IsUpper);
     
     public bool CheckPassword(string attempt) => Password == attempt;
-
-    public override string ToString() => $"{Username} ({UserType})";
     
-    public abstract string[] MenuOptions { get; }
 }
 
 public class PremiumUser : User
