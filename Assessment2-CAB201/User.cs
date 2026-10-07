@@ -43,8 +43,11 @@ public abstract class User
 public class PremiumUser : User
 {
     public override string UserType => "Premium Listener";
-    public DateTime RegistrationDate { get; set; }
+    public string RegistrationDate { get; set; }
     public string PayID { get; set; } = "";
+
+    public static bool IsValidRegistrationDate(string date) =>
+        date == date.ToString(DATEFORMAT);
     
     public override string[] MenuOptions => new[] { "Create podcast", "View my podcasts", "Log out" };
 }
