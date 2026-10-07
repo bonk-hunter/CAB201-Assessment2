@@ -19,7 +19,7 @@ public abstract class UserMenu
         {
             new MenuOptions("See my details", SeeMyDetails),
             new MenuOptions("Change my password", ChangePassword)
-        }
+        };
     }
 
     public void RunUserMenu()
@@ -69,6 +69,7 @@ public abstract class UserMenu
     }
 
     public class RegularUserMenu : UserMenu
+    
     {
         public override List<MenuOptions> GetExtraOptions => new()
         {

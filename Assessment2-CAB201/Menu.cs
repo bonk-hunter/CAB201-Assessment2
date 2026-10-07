@@ -7,10 +7,10 @@ public class Menu
     
     public void DisplayHeader()
     {
-        Console.WriteLine("=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+==");
-        Console.WriteLine("         Welcome to PodCastWorld!     ");
-        Console.WriteLine("      Podcasting all over the world.      ");
-        Console.WriteLine("=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+==");
+        CMDLineUI.DisplayString("=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+==");
+        CMDLineUI.DisplayString("         Welcome to PodCastWorld!     ");
+        CMDLineUI.DisplayString("      Podcasting all over the world.      ");
+        CMDLineUI.DisplayString("=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+==");
     }
 
     public string MainMenu()
@@ -31,7 +31,7 @@ public class Menu
         User sessionUser = ChooseUserType();
         CMDLineUI.DisplayString($"Registering as a {sessionUser.UserType.ToLower()}.");
         CMDLineUI.DisplayString("Please enter your name:");
-        userName = CMDLineUI.GetString();
+        string userName = CMDLineUI.GetString();
 		while (!User.IsValidName(userName)) 
 		{
 			CMDLineUI.DisplayErrorAgain("Invalid name");
@@ -103,7 +103,7 @@ public class Menu
     public User UserMenu(User user)
     {
         CMDLineUI.DisplayString(user.UserType + " Menu");
-        for(int i = 0; i < user.MenuOptions.Length; i++)
+        for(int i = 0; i < user.GetOptions.Length; i++)
         {
             CMDLineUI.DisplayString($"{i+1}. {user.MenuOptions[i]}.");
         }

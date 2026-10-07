@@ -10,7 +10,7 @@ public abstract class User
     public string Email { get; set; } = "";
 
     public static bool IsValidName(string name) =>
-        name != '' &&
+        !string.IsNullOrEmpty(name) &&
         !name.Any(char.IsDigit);
     
     public static bool IsValidAge(int age) => 
@@ -47,7 +47,7 @@ public class PremiumUser : User
     public string PayID { get; set; } = "";
 
     public static bool IsValidRegistrationDate(string date) =>
-        date == date.ToString(DATEFORMAT);
+        date == date.ToString(PDWorldConsts.DATEFORMAT);
     
     public override string[] MenuOptions => new[] { "Create podcast", "View my podcasts", "Log out" };
 }
