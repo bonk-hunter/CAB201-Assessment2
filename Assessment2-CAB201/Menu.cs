@@ -74,12 +74,7 @@ public class Menu
             password = CMDLineUI.GetString();
         }
         sessionUser.Password = password;
-		if(sessionUser.UserType == "Premium Listener") 
-		{
-			CMDLineUI.DisplayString("Please enter the registration date in dd/MM/yy format:");
-
-			CMDLineUI.DisplayString("Please enter your pay ID between 100000 and 999999:");
-		}
+		        
         CMDLineUI.DisplayString($"Congratulations {sessionUser.Username}. You have registered as a {sessionUser.UserType}.");
         return sessionUser;
     }
