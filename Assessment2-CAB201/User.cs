@@ -47,7 +47,7 @@ public class PremiumUser : User
     public string PayID { get; set; } = "";
 
     public static bool IsValidRegistrationDate(string date) =>
-        date == date.ToString(DATEFORMAT);
+        date == date.ToString(PDWorldConsts.DATEFORMAT);
     
     public override string[] MenuOptions => new[] { "Create podcast", "View my podcasts", "Log out" };
 }

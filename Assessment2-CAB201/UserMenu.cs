@@ -19,7 +19,7 @@ public abstract class UserMenu
         {
             new MenuOptions("See my details", SeeMyDetails),
             new MenuOptions("Change my password", ChangePassword)
-        }
+        };
     }
 
     public void RunUserMenu()

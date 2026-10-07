@@ -103,7 +103,7 @@ public class Menu
     public User UserMenu(User user)
     {
         CMDLineUI.DisplayString(user.UserType + " Menu");
-        for(int i = 0; i < user.MenuOptions.Length; i++)
+        for(int i = 0; i < user.GetOptions.Length; i++)
         {
             CMDLineUI.DisplayString($"{i+1}. {user.MenuOptions[i]}.");
         }
