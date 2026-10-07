@@ -1,5 +1,8 @@
-﻿namespace Assessment2_CAB201;
+namespace Assessment2_CAB201;
 
+/// <summary>
+/// RESPONSIBILITY: Runs the logged-in menu loop for a user.
+/// </summary>
 public abstract class UserMenu
 {
     protected readonly User user;
@@ -11,15 +14,17 @@ public abstract class UserMenu
 
     protected abstract string Title { get; }
 
-    protected abstract List<MenuOptions> GetExtraOptions();
-    
-    private List<MenuOptions> GetOptions()
+    protected abstract List<MenuOption> GetExtraOptions();
+
+    private List<MenuOption> GetOptions()
     {
-        List<MenuOptions> options = new()
+        List<MenuOption> options = new()
         {
-            new MenuOptions("See my details", SeeMyDetails),
-            new MenuOptions("Change my password", ChangePassword)
+            new MenuOption("See my details", SeeMyDetails),
+            new MenuOption("Change my password", ChangePassword)
         };
+        options.AddRange(GetExtraOptions());
+        return options;
     }
 
     public void RunUserMenu()
@@ -67,28 +72,64 @@ public abstract class UserMenu
         }
         user.Password = password;
     }
+}
 
-    public class RegularUserMenu : UserMenu
+public class RegularUserMenu : UserMenu
+{
+    public RegularUserMenu(User user) : base(user) { }
+
+    protected override string Title => "Regular Listener Menu.";
+
+    protected override List<MenuOption> GetExtraOptions() => new()
     {
-        public override List<MenuOptions> GetExtraOptions => new()
-        {
-            new MenuOptions()
-        }
+        new MenuOption("View all podcasts", ViewAllPodcasts),
+        new MenuOption("Listen to a podcast episode", ListenToEpisode),
+        new MenuOption("Provide feedback on a podcast episode", ProvideFeedback)
+    };
+
+    protected void ViewAllPodcasts()
+    {
+        // TODO
     }
 
-    public class PremiumUserMenu : UserMenu
+    protected void ListenToEpisode()
     {
-        public override List<MenuOptions> GetExtraOptions => new()
-        {
-            new MenuOptions()
-        }
+        // TODO
     }
 
-    public class PodcasterMenu : UserMenu
+    protected void ProvideFeedback()
     {
-        public override List<MenuOptions> GetExtraOptions => new()
-        {
-            new MenuOptions
-        }
+        // TODO
+    }
+}
+
+// TODO: check the spec - this assumes a premium listener gets everything a regular listener does
+public class PremiumUserMenu : RegularUserMenu
+{
+    public PremiumUserMenu(User user) : base(user) { }
+
+    protected override string Title => "Premium Listener Menu.";
+}
+
+public class PodcasterMenu : UserMenu
+{
+    public PodcasterMenu(User user) : base(user) { }
+
+    protected override string Title => "Podcaster Menu.";
+
+    protected override List<MenuOption> GetExtraOptions() => new()
+    {
+        new MenuOption("Create podcast", CreatePodcast),
+        new MenuOption("View my podcasts", ViewMyPodcasts)
+    };
+
+    private void CreatePodcast()
+    {
+        // TODO
+    }
+
+    private void ViewMyPodcasts()
+    {
+        // TODO
     }
 }

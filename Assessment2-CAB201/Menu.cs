@@ -2,9 +2,7 @@ namespace Assessment2_CAB201;
 
 public class Menu
 {
-    
-    Auth authenticator;
-    
+
     public void DisplayHeader()
     {
         Console.WriteLine("=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+==");
@@ -24,25 +22,25 @@ public class Menu
         CMDLineUI.DisplayString("Please enter a choice between 1 and 3:");
         return Console.ReadLine() ?? "";
     }
-    
+
     public User RegistrationMenu()
     {
         CMDLineUI.DisplayString("Registration Menu.");
         User sessionUser = ChooseUserType();
         CMDLineUI.DisplayString($"Registering as a {sessionUser.UserType.ToLower()}.");
         CMDLineUI.DisplayString("Please enter your name:");
-        userName = CMDLineUI.GetString();
-		while (!User.IsValidName(userName)) 
-		{
-			CMDLineUI.DisplayErrorAgain("Invalid name");
-			userName = CMDLineUI.GetString();
-		}
+        string userName = CMDLineUI.GetString();
+        while (!User.IsValidName(userName))
+        {
+            CMDLineUI.DisplayErrorAgain("Invalid name");
+            userName = CMDLineUI.GetString();
+        }
+        sessionUser.Username = userName;
         CMDLineUI.DisplayString("Please enter your age between 18 and 99:");
-        int age = int.Parse(CMDLineUI.GetString());
+        int age;
         while (!int.TryParse(CMDLineUI.GetString(), out age) || !User.IsValidAge(age))
         {
             CMDLineUI.DisplayErrorAgain("Invalid age");
-			age = int.Parse(CMDLineUI.GetString());
         }
         sessionUser.Age = age;
         CMDLineUI.DisplayString("Please enter your mobile number:");
@@ -54,12 +52,12 @@ public class Menu
         }
         sessionUser.Mobile = mobile;
         CMDLineUI.DisplayString("Please enter your email:");
-		string email = CMDLineUI.GetString();
+        string email = CMDLineUI.GetString();
         while (!User.IsValidEmail(email))
         {
             CMDLineUI.DisplayErrorAgain("Invalid email");
             email = CMDLineUI.GetString();
-       	}
+        }
         sessionUser.Email = email;
         CMDLineUI.DisplayString("Please enter your password:");
         CMDLineUI.DisplayString("Your password must:");
@@ -74,7 +72,7 @@ public class Menu
             password = CMDLineUI.GetString();
         }
         sessionUser.Password = password;
-		        
+
         CMDLineUI.DisplayString($"Congratulations {sessionUser.Username}. You have registered as a {sessionUser.UserType}.");
         return sessionUser;
     }
@@ -96,21 +94,9 @@ public class Menu
             CMDLineUI.DisplayErrorAgain("Entered password does not match existing password");
         }
         CMDLineUI.DisplayString($"Welcome back {user.Username}.");
-        UserMenu(user);
         return user;
     }
 
-    public User UserMenu(User user)
-    {
-        CMDLineUI.DisplayString(user.UserType + " Menu");
-        for(int i = 0; i < user.GetOptions.Length; i++)
-        {
-            CMDLineUI.DisplayString($"{i+1}. {user.MenuOptions[i]}.");
-        }
-        CMDLineUI.DisplayString($"Please enter a choice between 1 and {user.MenuOptions.Length}.");
-        
-    }
-    
     private User ChooseUserType()
     {
         while (true)
@@ -129,5 +115,5 @@ public class Menu
             CMDLineUI.DisplayErrorAgain("Invalid choice");
         }
     }
-    
+
 }

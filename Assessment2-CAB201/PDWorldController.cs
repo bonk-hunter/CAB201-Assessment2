@@ -1,4 +1,4 @@
-﻿namespace Assessment2_CAB201;
+namespace Assessment2_CAB201;
 
 public class PDWorldController
 {
@@ -15,20 +15,31 @@ public class PDWorldController
             if (userChoice == "3")
             {
                 Goodbye();
+                keepRunning = false;
             } else if (userChoice == "2")
             {
                 authentication.Register(menu.RegistrationMenu());
             } else if (userChoice == "1")
             {
-                menu.LogInMenu(authentication);
+                if (!authentication.HasUsers)
+                {
+                    CMDLineUI.DisplayError("There are no people registered");
+                }
+                else
+                {
+                    User user = menu.LogInMenu(authentication);
+                    UserMenuFactory.CreateUserMenu(user).RunUserMenu();
+                }
+            } else
+            {
+                CMDLineUI.DisplayErrorAgain("Invalid choice");
             }
         }
     }
-    
+
     public void Goodbye()
     {
         CMDLineUI.DisplayString("See you on the next rotation.");
-        Environment.Exit(0);
     }
-    
+
 }

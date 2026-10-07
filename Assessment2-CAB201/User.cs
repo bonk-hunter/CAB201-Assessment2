@@ -1,4 +1,6 @@
-﻿namespace Assessment2_CAB201;
+using System.Globalization;
+
+namespace Assessment2_CAB201;
 
 public abstract class User
 {
@@ -10,11 +12,11 @@ public abstract class User
     public string Email { get; set; } = "";
 
     public static bool IsValidName(string name) =>
-        name != '' &&
+        !string.IsNullOrWhiteSpace(name) &&
         !name.Any(char.IsDigit);
-    
-    public static bool IsValidAge(int age) => 
-        age >= 18 && 
+
+    public static bool IsValidAge(int age) =>
+        age >= 18 &&
         age <= 99;
 
     public static bool IsValidEmail(string email)
@@ -35,33 +37,27 @@ public abstract class User
         password.Any(char.IsDigit) &&
         password.Any(char.IsLower) &&
         password.Any(char.IsUpper);
-    
+
     public bool CheckPassword(string attempt) => Password == attempt;
-    
+
 }
 
 public class PremiumUser : User
 {
     public override string UserType => "Premium Listener";
-    public string RegistrationDate { get; set; }
+    public string RegistrationDate { get; set; } = "";
     public string PayID { get; set; } = "";
 
     public static bool IsValidRegistrationDate(string date) =>
-        date == date.ToString(PDWorldConsts.DATEFORMAT);
-    
-    public override string[] MenuOptions => new[] { "Create podcast", "View my podcasts", "Log out" };
+        DateTime.TryParseExact(date, PDWorldConsts.DATEFORMAT, CultureInfo.InvariantCulture, DateTimeStyles.None, out _);
 }
 
 public class RegularUser : User
 {
     public override string UserType => "Regular Listener";
-    
-    public override string[] MenuOptions => new[] { "See my details", "Change my password", "View all podcasts", "Listen to a podcast episode", "Provide feedback on a podcast episode","Log out" };
 }
 
 public class Podcaster : User
 {
     public override string UserType => "Podcaster";
-    
-    public override string[] MenuOptions => new[] { "Create podcast", "View my podcasts", "Log out" };
 }
