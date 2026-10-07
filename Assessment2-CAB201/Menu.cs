@@ -29,7 +29,7 @@ public class Menu
     {
         CMDLineUI.DisplayString("Registration Menu.");
         User sessionUser = ChooseUserType();
-        CMDLineUI.DisplayString("Registering as a " + sessionUser.UserType.ToLower() +".");
+        CMDLineUI.DisplayString($"Registering as a {sessionUser.UserType.ToLower()}.");
         CMDLineUI.DisplayString("Please enter your name:");
         userName = CMDLineUI.GetString();
 		while (!User.IsValidName(userName)) 
@@ -74,7 +74,7 @@ public class Menu
             password = CMDLineUI.GetString();
         }
         sessionUser.Password = password;
-        CMDLineUI.DisplayString("Congratulations " + sessionUser.Username + ". You have registered as a " + sessionUser.UserType + ".");
+        CMDLineUI.DisplayString($"Congratulations {sessionUser.Username}. You have registered as a {sessionUser.UserType}.");
         return sessionUser;
     }
 
@@ -94,7 +94,7 @@ public class Menu
         {
             CMDLineUI.DisplayErrorAgain("Entered password does not match existing password");
         }
-        CMDLineUI.DisplayString("Welcome back " +  user.Username + ".");
+        CMDLineUI.DisplayString($"Welcome back {user.Username}.");
         UserMenu(user);
         return user;
     }
@@ -102,11 +102,11 @@ public class Menu
     public User UserMenu(User user)
     {
         CMDLineUI.DisplayString(user.UserType + " Menu");
-        for(int i = 1; i <= user.MenuOptions.Length; i++)
+        for(int i = 0; i < user.MenuOptions.Length; i++)
         {
-            CMDLineUI.DisplayString(i + ". " + user.MenuOptions[i-1] + ".");
+            CMDLineUI.DisplayString($"{i+1}. {user.MenuOptions[i]}.");
         }
-        CMDLineUI.DisplayString("Please enter a choice between 1 and " + user.MenuOptions.Length + ".");
+        CMDLineUI.DisplayString($"Please enter a choice between 1 and {user.MenuOptions.Length}.");
         
     }
     

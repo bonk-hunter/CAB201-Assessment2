@@ -22,7 +22,7 @@ public abstract class UserMenu
         }
     }
 
-    public void Run()
+    public void RunUserMenu()
     {
         bool loggedIn = true;
         while (loggedIn)
