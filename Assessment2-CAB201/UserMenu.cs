@@ -17,9 +17,11 @@ public abstract class UserMenu
     {
         List<MenuOption> options = new()
         {
-            new MenuOption("See my details", SeeMyDetails),
-            new MenuOption("Change my password", ChangePassword)
+            new MenuOption("See my details", user.SeeMyDetails()),
+            new MenuOption("Change my password", user.ChangePassword())
         };
+	options.AddRange(GetExtraOptions());
+	return options;
     }
 
     public void RunUserMenu()
@@ -48,12 +50,15 @@ public abstract class UserMenu
     }
 
     // Shared by every user type
-    protected void SeeMyDetails()
+    protected virtual void SeeMyDetails()
     {
         CMDLineUI.DisplayString($"Name: {user.Username}");
         CMDLineUI.DisplayString($"Age: {user.Age}");
-        CMDLineUI.DisplayString($"Mobile: {user.Mobile}");
+        CMDLineUI.DisplayString($"Mobile phone number: {user.Mobile}");
         CMDLineUI.DisplayString($"Email: {user.Email}");
+		CMDLineUI.DisplayString($"Episodes started: {user.GetEpisodesStarted()}");
+		CMDLineUI.DisplayString($"Episodes completed: {user.GetEpisodesCompleted()}");
+		CMDLineUI.DisplayString($"Total minutes listened: {user.GetTotalMinutesListened()}")
     }
 
     protected void ChangePassword()
@@ -78,6 +83,12 @@ public abstract class UserMenu
             new MenuOption()
         }
 		options.AddRange(GetExtraOptions);
+		
+		protected override void SeeMyDetails()
+		{
+			base.SeeMyDetails();
+			CMDLineUI.DisplayString($"Advertisements listened to: {user.GetAdvertisementsListenedTo()}");
+		}
     }
 
     public class PremiumUserMenu : UserMenu
@@ -90,6 +101,13 @@ public abstract class UserMenu
             
         };
 		options.AddRange(GetExtraOptions);
+
+		protected override void SeeMyDetails()
+		{
+			base.SeeMyDetails();
+			CMDLineUI.DisplayString($"Registration Date: {user.RegistrationDate.ToString()}");
+			CMDLineUI.DisplayString($"Pay ID: {user.PayID}");
+		}
     }
 
     public class PodcasterMenu : UserMenu

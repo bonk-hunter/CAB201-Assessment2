@@ -113,7 +113,7 @@ public class Menu
         }
         CMDLineUI.DisplayString($"Welcome back {user.Username}.");
         
-        RunUserMenu(user);
+        UserMenuFactory.CreateUserMenu(user).RunUserMenu();
         return user;
     }
     

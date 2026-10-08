@@ -2,8 +2,8 @@
 
 public class PDWorldController
 {
-    private Menu menu = new Menu();
-    private Auth authentication = new Auth();
+    private readonly Menu menu = new Menu();
+    private readonly Auth authentication = new Auth();
 
     public void Run()
     {
