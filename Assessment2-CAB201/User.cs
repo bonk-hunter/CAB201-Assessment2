@@ -43,25 +43,24 @@ public abstract class User
 public class PremiumUser : User
 {
     public override string UserType => "Premium Listener";
-    public string RegistrationDate { get; set; }
-    public string PayID { get; set; } = "";
+    public DateTime RegistrationDate { get; set; }
+    public int PayID { get; set; } = "";
 
-    public static bool IsValidRegistrationDate(string date) =>
-        date == date.ToString(PDWorldConsts.DATEFORMAT);
-    
-    public override string[] MenuOptions => new[] { "Create podcast", "View my podcasts", "Log out" };
+	public static bool IsValidPayID(string payID) =>
+		payID >= 100000 &&
+		payID <= 999999;
 }
 
 public class RegularUser : User
 {
     public override string UserType => "Regular Listener";
     
-    public override string[] MenuOptions => new[] { "See my details", "Change my password", "View all podcasts", "Listen to a podcast episode", "Provide feedback on a podcast episode","Log out" };
+    public override string[] MenuOption => new[] { "See my details", "Change my password", "View all podcasts", "Listen to a podcast episode", "Provide feedback on a podcast episode","Log out" };
 }
 
 public class Podcaster : User
 {
     public override string UserType => "Podcaster";
     
-    public override string[] MenuOptions => new[] { "Create podcast", "View my podcasts", "Log out" };
+    public override string[] MenuOption => new[] { "Create podcast", "View my podcasts", "Log out" };
 }

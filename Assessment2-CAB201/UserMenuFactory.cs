@@ -4,9 +4,9 @@ public static class UserMenuFactory
 {
     public static UserMenu CreateUserMenu(User user) => user switch
     {
-        PremiumUser => PremiumUserMenu(user),
-        RegularUser => RegularUserMenu(user),
-        Podcaster => PodcasterMenu(user),
+        PremiumUser premium => PremiumUserMenu(premium),
+        RegularUser regular => RegularUserMenu(regular),
+        Podcaster podcaster => PodcasterMenu(podcaster),
         _ => throw new ArgumentException($"No menu for {user.UserType}")
     };
-}
+} 

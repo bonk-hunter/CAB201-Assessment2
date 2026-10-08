@@ -55,9 +55,9 @@ public class Menu
         sessionUser.Mobile = mobile;
         CMDLineUI.DisplayString("Please enter your email:");
 		string email = CMDLineUI.GetString();
-        while (!User.IsValidEmail(email))
+        while (!User.IsValidEmail(email) || authenticator.FindByEmail(email) != null)
         {
-            CMDLineUI.DisplayErrorAgain("Invalid email");
+            CMDLineUI.DisplayErrorAgain(User.IsValidEmail(email) ? "Email is already registered" : "Invalid email");
             email = CMDLineUI.GetString();
        	}
         sessionUser.Email = email;
@@ -74,13 +74,29 @@ public class Menu
             password = CMDLineUI.GetString();
         }
         sessionUser.Password = password;
-		        
+        if (sessionUser is PremiumUser premium)
+        {
+            CMDLineUI.DisplayString($"Please enter the registration date in {PDWorldConsts.DATEFORMAT} format:");
+            DateTime registrationDate;
+            while (!DateTime.TryParse(CMDLineUI.GetString(), PDWorldConsts.DATEFORMAT, out registrationDate))
+            {
+                CMDLineUI.DisplayErrorAgain("Invalid date");
+            }
+            premium.RegistrationDate = registrationDate;
+            CMDLineUI.DisplayString("Please enter your pay ID between 100000 and 999999:");
+            int payID;
+            while (!int.TryParse(CMDLineUI.GetString(), out payID) || !PremiumUser.IsValidPayID(payID))
+            {
+                CMDLineUI.DisplayErrorAgain("Invalid pay ID");
+            }
+        }
         CMDLineUI.DisplayString($"Congratulations {sessionUser.Username}. You have registered as a {sessionUser.UserType}.");
         return sessionUser;
     }
 
     public User LogInMenu(Auth authenticator)
     {
+        
         CMDLineUI.DisplayString("Log in Menu.");
         CMDLineUI.DisplayString("Please enter your email:");
         User? user = authenticator.FindByEmail(CMDLineUI.GetString());
@@ -96,19 +112,9 @@ public class Menu
             CMDLineUI.DisplayErrorAgain("Entered password does not match existing password");
         }
         CMDLineUI.DisplayString($"Welcome back {user.Username}.");
-        UserMenu(user);
-        return user;
-    }
-
-    public User UserMenu(User user)
-    {
-        CMDLineUI.DisplayString(user.UserType + " Menu");
-        for(int i = 0; i < user.GetOptions.Length; i++)
-        {
-            CMDLineUI.DisplayString($"{i+1}. {user.MenuOptions[i]}.");
-        }
-        CMDLineUI.DisplayString($"Please enter a choice between 1 and {user.MenuOptions.Length}.");
         
+        RunUserMenu(user);
+        return user;
     }
     
     private User ChooseUserType()

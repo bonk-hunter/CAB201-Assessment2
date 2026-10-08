@@ -11,14 +11,14 @@ public abstract class UserMenu
 
     protected abstract string Title { get; }
 
-    protected abstract List<MenuOptions> GetExtraOptions();
+    protected abstract List<MenuOption> GetExtraOptions();
     
-    private List<MenuOptions> GetOptions()
+    private List<MenuOption> GetOptions()
     {
-        List<MenuOptions> options = new()
+        List<MenuOption> options = new()
         {
-            new MenuOptions("See my details", SeeMyDetails),
-            new MenuOptions("Change my password", ChangePassword)
+            new MenuOption("See my details", SeeMyDetails),
+            new MenuOption("Change my password", ChangePassword)
         };
     }
 
@@ -71,25 +71,36 @@ public abstract class UserMenu
     public class RegularUserMenu : UserMenu
     
     {
-        public override List<MenuOptions> GetExtraOptions => new()
+		public RegularUserMenu(User user) : base(user)
+		protected override string Title => $"{user.UserType} Menu";
+        public override List<MenuOption> GetExtraOptions => new()
         {
-            new MenuOptions()
+            new MenuOption()
         }
+		options.AddRange(GetExtraOptions);
     }
 
     public class PremiumUserMenu : UserMenu
     {
-        public override List<MenuOptions> GetExtraOptions => new()
+		public PremiumUserMenu(User user) : base(user)
+		protected override string Title => $"{user.UserType} Menu";
+
+        protected override List<MenuOption> GetExtraOptions => new()
         {
-            new MenuOptions()
-        }
+            
+        };
+		options.AddRange(GetExtraOptions);
     }
 
     public class PodcasterMenu : UserMenu
     {
-        public override List<MenuOptions> GetExtraOptions => new()
+		public PodcasterMenu(User user) : base(user)
+		protected override string Title => $"{user.UserType} Menu";
+        public override List<MenuOption> GetExtraOptions => new()
         {
-            new MenuOptions
+            new MenuOption("Create podcast", NotImplemented),
+			new MenuOption("View my podcasts", NotImplemented),
         }
+		options.AddRange(GetExtraOptions);
     }
 }
